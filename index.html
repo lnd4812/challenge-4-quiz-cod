@@ -8,23 +8,22 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    
     <header>
         <title>
             <h1>Codemaster Quiz</h1>
         </title>
         <!--display link to high scores-->
-            <div class="scoresLink">
-                <a id="view-scores" href="/">View High Scores</a>   
-            </div>
+        <div class="scoresLink">
+            <a id="view-scores" href="/">View High Scores</a>   
+        </div>
         <div class="timerDisplay">
             <p>Time Left: <span id="timer"></span></p>
-       </div>
+        </div>
     </header>
     <main>
         <section class="quiz-container">
            <!--set up the intro display-->
-           <section class="intro">
+           <div class="intro">
            <h1 class="quiz-title">Coding Quiz Challenge</h1>
                 <br  />
                 <p>Try to answer the following code-related questions within the time limit</p>
@@ -33,14 +32,12 @@
                 <div class="start-button">
                     <button class="btn" id="start" type="button">Start Quiz</button>
                 </div>
-            </section>
+            </div>
         </section>    
         <section class="question-section">
             <div id="quiz-questions">
-                <h1 id="the-questions">
-                </h1>
-                <div id="the-options">
-                </div>
+                <h1 id="the-questions"></h1>
+                <div id="the-options"></div>
             </div>
         </section>
         <section class="score-container" id="all-done">
