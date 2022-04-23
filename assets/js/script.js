@@ -1,20 +1,44 @@
 // Code QuizMaster Javascript code
+// create html file with header displaying link to high scores, countdown clock and start button
+// create questions array
+// when button clicked, the quiz starts with the first set of questions 
+    // a question with four answers enclosed within coloured numbered buttons comes up
+    // the user clicks on a button to answer the question;
+      // if correctChoice = true, Correct! appears on screen below questions
+      // if correctChoice = false; Wrong! appears on screen below questions and user is docked # seconds
+      // as long as there is time left on the clock, proceed to the next set of questions
+      // the quiz ends the sooner of all questions answered or the clock runs out 
+      // the user's score = time left on the clock if any
+// user proceeds to next screen to enter initials in high score input field Your Score is --- & please enter initials
+  // score is stored in local Storage then taken to page displaying initials & score
+  //  2 buttons, one to go back to previous screen, one to clear high scores (set localStorage to ""?)      
 
 // Get references to the #start button element
 var startBtn = document.querySelector("#start");
 
 // establish variables for use in running necessary questions
-var quizSectionEl = document.querySelector(".question-container"); 
+// need to designate "containers" for each section
+var quizSectionEl = document.querySelector(".question-section"); 
 var quizQuestionsEl = document.querySelector("#quiz-questions"); 
-var optionSelectEl = document.querySelector("#the-options"); 
+var answerOptionsEl = document.querySelector("#answer-options"); 
 var highScoreDisplayEl = document.querySelector("#high-scores");
-var enterScorerInit = ""; 
-var quesNum = 0; //start run through of questions at first item in array 
-var quizTime = 60; // initiate clock at 60 seconds 
+
+// starting value for timer & initial finalScore
+var quizTimeLeft = 60; // initiate clock at 60 seconds; declare globally since used in various functions
+var quizTimeEl = document.querySelector("#timer");
 var finalScore = ""; // score is empty at first run through
 
+// // starting value for list of questions
+// var questionNumber = 0; //start run through of questions at first item in array 
+
+// starting value for player's initials
+var enterScorerInit = ""; 
+
+// counter
+var index = 0;
+
 // create array from querySelector element to store questions and answers with inner array for quiz choices 
-var quizQuestionsEl = [
+var quizQuestions = [
 {
   question: "Commonly used data types do NOT include:",
   choices: ["Strings", "Booleans", "Alerts", "Numbers"],
@@ -43,130 +67,45 @@ var quizQuestionsEl = [
 ]
 
 // start the process when "start quiz" button pressed 
-startBtn.addEventListener("click", startQuiz);
+var startQuiz = function() {
+  // start quiz will call timer function to begin countdown 
+  function quizTimer() { 
+    // // section is not visible until start button clicked
+    // quizQuestionsEl.style.display = "none"; 
+    // // call first question, position 0 in array, to start quiz
+    // quizRunThrough(0); 
+    // // start timer
 
-// start quiz will call timer function to begin countdown 
-function quizTimer() { 
-  // section is not visible until start button clicked
-  quizQuestionsSetEl.style.display = "none"; 
-  // call first question, position 0 in array, to start quiz
-  quizRunThrough(0); 
-  // start timer
-  var quizTimeDisplay = setInterval(function() { 
-     // user answers questions until finished or time runs out
-    If (quizTime <= 0 || quesNum === quizQuestions.length); { 
-       // user is out of time or finished the quiz, 
-      clearInterval(quizTimeDisplay); 
-      document.getElementById("timer").textContent = "The quiz has ended. Thank you for playing.";
-      // go to scorer Initial Input field
-        inputScore(); 
-    //} else { getting error expecting statement but not sure why
-      document.getElementById("timer").textContent = quizTime;
-      quizTime--;
-    } 
-    // decrease time by 1 second
-   
-    }, 1000);
-};
- 
-// quiz question process 
-function quizRunThrough(quesNum) {
-  // if there is still time left from the last user but all questions have been asked, reset to empty to start again
-  if (quizTime > 0 && quizQuestions.length > 4) {
-    document.querySelector("#the-questions").textContent = quizQuestions[i].question; 
-    optionSelectEl.innerHTML = ""; 
-  // create buttons for answer options for each question in sequence
-  for(var i = 0; i < quizQuestions.length; i++ ) {
-    var option = document.createElement("button");
-    option.setAttribute("class", "option-btn"); 
-    option.setAttribute("value", quizQuestions[quesNum].choices[i]);
-    option.textContent = quizQuestions[quesNum].choices[i];
-    option.onclick = checkResult;
-    answerOptionEl.appendChild(option);
-    };
-  } else { 
-      inputScore();
-}
-// check if user answered correctly
-function checkResult();
- //if user answers question incorrectly, display "wrong" and dock 10 seconds from time, otherwise proceed to next question 
-  if(answerOptionEl != correctChoice) {
-    alert("Sorry, wrong answer! You lose 10 seconds from time remaining.");
-    quizTime = quizTime - 10;
-  } else {
-    alert("Correct!");
-    //index increased by one after last for loop; check if max reached, if not, next set of questions, otherwise proceed to All Done page to check score and enter initials
-    if (quesNum <= quizQuestions.length) {
-      quizRunThrough(quesNum);
-    } else {
-      inputScore();
-    }
+    var quizTimeDisplay = setInterval(function() { 
+      if (quizTimeLeft > 1) {
+        quizTimeEl.textContent = quizTimeLeft + ' seconds';
+        quizTimeLeft--;
+      } else if (quizTimeLeft === 1) {
+        quizTimeEl.textContent = quizTimeLeft + ' second';
+        quizTimeLeft--;
+      } else if (quizTimeLeft <= 0) {
+        clearInterval(quizTimeDisplay);
+      }
+    }, 1000);  
   }
+      // user answers questions until finished or time runs out
+      
+     
+     
+     
+    //  (quizTimeLeft <= 0 || quesNum === quizQuestions.length); { 
+    //     // user is out of time or finished the quiz, 
+    //     clearInterval(quizTimeDisplay); 
+    //     document.getElementById("timer").textContent = "The quiz has ended. Thank you for playing.";
+    //     // go to scorer Initial Input field
+    //     inputScore(); 
+    //   //} else { getting error expecting statement but not sure why
+    //     document.getElementById("timer").textContent = quizTimeLeft;
+        
+    // // decrease time by 1 second
 
 quizTimer();
-
-// Proceed to All Done page to check score and enter initials
-// if time = 0 before user has finished answering all questions, highScore value = 0.  display "try again next time"
-function inputScore() {
-// if time > 0 and user has answered all questions, display final score based on quiz-time 
-  yourScore = quizTime;
-  optionSelectEl.style.display = none;
-  //reset question index to empty
-  quizQuestionsEl.innerHTML = "";
-  //reveal All Done div to display input field and score
-  enterScorerInitEl.style.display = "inherit";
-  document.getElementbyId("yourScore").textContent = score;  }
-
-// User inputs initials after finishing quiz and initials are stored with highScoreTime in local storage
-// need to ensure user enters 2 initials only
-
-var highScorer = document.querySelector("input[name='high-scorer']").value;
-//save score and initials to local storage
-  var addScore = document.querySelector("#add-score");
-  localStorage.setItem("addScore", score);
-  localStorage.setItem(("highScorer", JSON.stringify(highScorer)));
-
 };
-  function displayHighScorer() {
-    var highestScorer = localStorage.getItem('high-scorer')
-    var highScore = localStorage.getItem('score', JSON.stringify(score));
-    highScoreDisplayEl.querySelector("#view-score-btn").textContent = "high score = " + highScore + " achieved by " + highestScorer; 
-  
-  };
-
-// set event listeners for click of either Go Back or Clear High Scores button on High Scores page
-var goBackButton = document.querySelector("#go-back");
-
-var clearHighScores = document.querySelector("#clear-scores");
-
-var ViewScoreBtn = document.querySelector("#view-score-btn");
-
-var highScoreDisplayEl = function (event) {
-  var targetEl = event.target;
-  // if Go Back button is pressed, return to the previous screen
-  if(targetEl.matches("#go-back")) {
-    <a href="/"></a>
-  } else { // clear scores button clicked 
-    document.querySelector("input[name='high-scorer']").value = "";
-
-}
-//Score & Initials stored in Local storage. display top 3 scores - need function to update that
-};
-
-startQuiz();
-
-  
-// for back button
-goBackButton.addEventListener("click", goback );
-
-// Attach event listener to restore timer to 60 once start quiz button is clicked
-clearHighScores.addEventListener("click", clearscores);
-
-// for high score button
-viewScoreBtn.addEventListener("click", displayHighScorer);
-
-
-
-
+startBtn.addEventListener("click", startQuiz);
 
 

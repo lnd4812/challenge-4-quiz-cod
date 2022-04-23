@@ -109,7 +109,7 @@ body button a:hover {
   display: none;
 }
 
-#answer-correct, #answer-incorrect {
+#correct, #incorrect {
   display: none;
   justify-content: space-between;
   align-items: center;
@@ -127,7 +127,7 @@ body button a:hover {
   margin: 20px;
 }
 
-.score-output {
+.score-output, .score-container {
   display: none;
   margin: 10px;
   justify-content: center;
