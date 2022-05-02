@@ -34,8 +34,6 @@ var finalScore = ""; // score is empty at first run through
 // starting value for player's initials
 var enterScorerInit = ""; 
 
-// counter
-var index = 0;
 
 // create array from querySelector element to store questions and answers with inner array for quiz choices 
 var quizQuestions = [
@@ -68,6 +66,35 @@ var quizQuestions = [
 
 // start the process when "start quiz" button pressed 
 var startQuiz = function() {
+
+// startQuiz startBtn.onClick = > starts timer countdown and brings up first question
+
+// for (var i = 0, i < quizQuestions.length; i++)
+  var questionEl = quizQuestions[i];
+ // create container for questions - they have to be called - or on separate pages?
+ // questions are in array so first set will be quizQuestions[0]
+ // questionEl = document.createElement('div'), then questionEl.textContent = quizQuestions[0].question
+ // for (var i = 0, i < quizQuestions[0].choices, 
+ // var choicesEl = document.createElement('btn') [choices[0], [1], [2], [3]]
+ // on click, buttons change color
+ // var responseEl = document.createElement('div);
+ // correctChoice.onClick = responseEl.textContent = "correct", else "wrong answer"
+ // create a "next" button to go to quizQuestions[1, 2 & 3]?
+   
+
+
+  
+
+
+
+
+  quizQuestionsEl.appendChild(quizQuestions);
+  quizSectionEl.appendChild(quizQuestionsEl);
+
+
+
+
+
   // start quiz will call timer function to begin countdown 
   function quizTimer() { 
     // // section is not visible until start button clicked
@@ -77,13 +104,15 @@ var startQuiz = function() {
     // // start timer
 
     var quizTimeDisplay = setInterval(function() { 
-      if (quizTimeLeft > 1) {
+         
+      if (quizTimeLeft > 0) {
         quizTimeEl.textContent = quizTimeLeft + ' seconds';
         quizTimeLeft--;
-      } else if (quizTimeLeft === 1) {
+      } else 
+      if (quizTimeLeft === 1) {
         quizTimeEl.textContent = quizTimeLeft + ' second';
+        // decrease by 1 second, then stop
         quizTimeLeft--;
-      } else if (quizTimeLeft <= 0) {
         clearInterval(quizTimeDisplay);
       }
     }, 1000);  
